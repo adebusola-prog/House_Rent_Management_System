@@ -30,6 +30,7 @@ DEBUG = config("DEBUG", cast=bool)
 SECRET_KEY = config("SECRET_KEY")
 
 ALLOWED_HOSTS = ['https://houserentmanagementsystem-production.up.railway.app/', '*']
+# ALLOWED_HOSTS = ['*']
 
 
 
@@ -64,7 +65,7 @@ ROOT_URLCONF = "house_rent_project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
