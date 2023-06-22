@@ -31,9 +31,10 @@ class CustomUser(AbstractUser):
     username = models.CharField(max_length=19, unique=True, blank=True)
     last_name = models.CharField(max_length=30, null=False, blank=False)
     email = models.EmailField(unique=True)
-    # location = models.ManyToManyField(Location, related_name="my_location")
-    signuptype = models.CharField(max_length=200, choices=SIGN_UP_CHOICES)
+    signuptype = models.CharField(max_length=200, choices=SIGN_UP_CHOICES, blank=False, null=False)
     phone_number = PhoneNumberField(unique=True, null=True)
+    profile_picture = models.ImageField(upload_to="images/user_profile_picture", default="avatar.svg")
+    address = models.CharField(max_length=300, blank=True, null=True)
     is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = "email"
@@ -63,7 +64,6 @@ class HouseOwner(models.Model):
 
 class Tenant(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.SET_NULL, null=True)
-    profile_picture = models.ImageField(upload_to="images/user_profile_picture", default="avatar.svg")
     
     def __str__(self):
         return self.user.username

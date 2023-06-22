@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .serializers import LoginSerializer, ChangePasswordSerializer, \
     UserRegistrationSerializer, ResetPasswordSerializer, SetNewPasswordSerializer
-from .models import CustomUser
+from .models import CustomUser, HouseOwner, Tenant
 from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -45,12 +45,18 @@ class UserRegistrationView(generics.CreateAPIView):
             first_name = serializer.validated_data.get("first_name")
             last_name = serializer.validated_data.get("last_name")
             email = serializer.validated_data.get("email")
+            signuptype = serializer.validated_data.get("signuptype")
             print(email)
             print(serializer.data)
             password = serializer.validated_data.get("password")
             # confirm_password = serializer.validated_data.get("password2")
-            account = CustomUser.active_objects.create_user(
-                first_name=first_name, last_name=last_name, username=username, email = email, password=password)
+            account = CustomUser.objects.create_user(
+                first_name=first_name, last_name=last_name, username=username,
+                email = email, password=password, signuptype=signuptype)
+            if account.signuptype == 'H.O':
+                HouseOwner.objects.get_or_create(user=account)
+            else:
+                Tenant.objects.get_or_create(user=account)
             data["status"] = "success"
             data["username"] = account.username
             data["email"] = account.email
