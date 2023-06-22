@@ -31,7 +31,7 @@ class CustomUser(AbstractUser):
     username = models.CharField(max_length=19, unique=True, blank=True)
     last_name = models.CharField(max_length=30, null=False, blank=False)
     email = models.EmailField(unique=True)
-    signuptype = models.CharField(max_length=200, choices=SIGN_UP_CHOICES, blank=True, null=True)
+    signuptype = models.CharField(max_length=200, choices=SIGN_UP_CHOICES, blank=False, null=False, default="H.O")
     phone_number = PhoneNumberField(unique=True, null=True)
     profile_picture = models.ImageField(upload_to="images/user_profile_picture", default="avatar.svg")
     address = models.CharField(max_length=300, blank=True, null=True)
