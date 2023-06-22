@@ -29,10 +29,9 @@ DATABASE_URL= config('DATABASE_URL')
 DEBUG = config("DEBUG", cast=bool)
 SECRET_KEY = config("SECRET_KEY")
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://houserentmanagementsystem-production.up.railway.app/', '*']
 
-# CSRF_TRUSTED_ORIGINS = ['https://garbage-management-system-production.up.railway.app']
-# Application definition
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -47,6 +46,8 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "phonenumber_field"
 ]
+
+CSRF_TRUSTED_ORIGINS = ['https://houserentmanagementsystem-production.up.railway.app']
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
