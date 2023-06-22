@@ -6,6 +6,7 @@ django-phonenumbers==1.0.1
 djangorestframework==3.14.0
 djangorestframework-jwt==1.11.0
 djangorestframework-simplejwt==5.2.2
+gunicorn==20.1.0
 phonenumbers==8.13.13
 Pillow==9.5.0
 psycopg2==2.9.6
