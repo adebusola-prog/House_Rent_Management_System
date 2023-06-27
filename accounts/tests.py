@@ -19,7 +19,7 @@ def create_account(**params):
     return CustomUser.objects.create_user(**params)
 
 
-# //private - User modify
+
 
 class PublicAccountApiTests(TestCase):
     """Test the accounts API(public)"""

@@ -51,8 +51,9 @@ INSTALLED_APPS = [
 
 CSRF_TRUSTED_ORIGINS = ['https://houserentmanagementsystem-production.up.railway.app']
 
-CORS_ALLOWED_ORIGINS = ['*']
-                       
+CORS_ALLOWED_ORIGINS = ['https://houserentmanagementsystem-production.up.railway.app', 'http://localhost:3000',
+                        'http://localhost:8000', 'http://127.0.0.1:3000', 'http://127.0.0.1:8000', '*']
+                        # "https://zippy-dango-7ea3fe.netlify.app", "https://afex-web-project.netlify.app"]
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_ALLOW_ALL = True
