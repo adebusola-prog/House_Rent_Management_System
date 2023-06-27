@@ -1,6 +1,7 @@
 asgiref==3.7.2
 dj-database-url==2.0.0
 Django==4.2.2
+django-cors-headers==4.1.0
 django-phonenumber-field==7.1.0
 django-phonenumbers==1.0.1
 djangorestframework==3.14.0
