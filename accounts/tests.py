@@ -14,12 +14,8 @@ from .models import CustomUser
 
 CREATE_ACCOUNT_URL = reverse('user_register')
 
-
 def create_account(**params):
     return CustomUser.objects.create_user(**params)
-
-
-
 
 class PublicAccountApiTests(TestCase):
     """Test the accounts API(public)"""
