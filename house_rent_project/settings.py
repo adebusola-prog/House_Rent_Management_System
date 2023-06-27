@@ -45,15 +45,25 @@ INSTALLED_APPS = [
     "house_rent_app",
     "rest_framework",
     "rest_framework_simplejwt",
-    "phonenumber_field"
+    "phonenumber_field",
+    'corsheaders',
 ]
 
 CSRF_TRUSTED_ORIGINS = ['https://houserentmanagementsystem-production.up.railway.app']
+
+CORS_ALLOWED_ORIGINS = ['*']
+                       
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
