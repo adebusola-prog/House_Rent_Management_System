@@ -28,7 +28,7 @@ class LoginView(TokenObtainPairView):
     serializer_class = LoginSerializer
    
 
-class ChangePasswordAV(generics.UpdateAPIView):
+class ChangePassword(generics.UpdateAPIView):
     queryset = CustomUser.active_objects.all()
     serializer_class = ChangePasswordSerializer
 
@@ -55,8 +55,8 @@ class UserRegistrationView(generics.CreateAPIView):
                 email = email, password=password, signuptype=signuptype)
             if account.signuptype == 'H.O':
                 HouseOwner.objects.get_or_create(user=account)
-            else:
-                Tenant.objects.get_or_create(user=account)
+            Tenant.objects.get_or_create(user=account)
+            
             data["status"] = "success"
             data["username"] = account.username
             data["email"] = account.email
@@ -69,7 +69,7 @@ class UserRegistrationView(generics.CreateAPIView):
         return Response(data, status=status.HTTP_400_BAD_REQUEST)
     
 
-class ForgotPasswordAV(APIView):
+class ForgotPassword(APIView):
     serializer_class = ResetPasswordSerializer
 
     def post(self, request, *args, **kwargs):
@@ -90,12 +90,11 @@ class ForgotPasswordAV(APIView):
             mail_subject = "Please Reset your CustomUser Password"
             message = "Hi" + account.username + "," + \
                 " Please Use the Link below to reset your account passwors:" + "" + abs_url
-
             Utils.send_email(mail_subject, message, account.email)
         return Response({"status": "success", "message": "We have sent a password-reset link to the email you provided.Please check and reset  "}, status=status.HTTP_200_OK)
 
 
-class ResetPasswordAV(APIView):
+class ResetPassword(APIView):
     serializer_class = ResetPasswordSerializer
   
     def get(self, request, uuidb64, token):
@@ -109,6 +108,6 @@ class ResetPasswordAV(APIView):
             return Response({"status": "fail", "message": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class SetNewPasswordAV(generics.GenericAPIView):
+class SetNewPassword(generics.GenericAPIView):
     serializer_class = SetNewPasswordSerializer
    

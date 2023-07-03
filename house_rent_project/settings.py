@@ -29,8 +29,8 @@ DATABASE_URL= config('DATABASE_URL')
 DEBUG = config("DEBUG", cast=bool)
 SECRET_KEY = config("SECRET_KEY")
 
-ALLOWED_HOSTS = ['https://houserentmanagementsystem-production.up.railway.app/', '*']
-# ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['https://houserentmanagementsystem-production.up.railway.app/', '*']
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -47,16 +47,18 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "phonenumber_field",
     'corsheaders',
+    'rest_framework_swagger',
+    'drf_yasg',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://houserentmanagementsystem-production.up.railway.app']
+# CSRF_TRUSTED_ORIGINS = ['https://houserentmanagementsystem-production.up.railway.app']
 
-CORS_ALLOWED_ORIGINS = ['https://houserentmanagementsystem-production.up.railway.app', 'http://localhost:3000',
-                        'http://localhost:8000', 'http://127.0.0.1:3000', 'http://127.0.0.1:8000']
-                        # "https://zippy-dango-7ea3fe.netlify.app", "https://afex-web-project.netlify.app"]
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOWED_ORIGINS = ['https://houserentmanagementsystem-production.up.railway.app', 'http://localhost:3000',
+#                         'http://localhost:8000', 'http://127.0.0.1:3000', 'http://127.0.0.1:8000']
+#                         # "https://zippy-dango-7ea3fe.netlify.app", "https://afex-web-project.netlify.app"]
+# CORS_ALLOW_CREDENTIALS = True
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 
 
 
@@ -98,7 +100,7 @@ WSGI_APPLICATION = "house_rent_project.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600),
     # "default": {
     #     'ENGINE': config('DB_ENGINE'),
     #     'NAME': config('DB_NAME'),

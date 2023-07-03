@@ -2,14 +2,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.urls import reverse
 from phonenumber_field.modelfields import PhoneNumberField
-from house_rent_app.models import Location
 from base import constants
 
 
 class ActiveManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_active=True)
-
 
 class InActiveManager(models.Manager):
     def get_queryset(self):
@@ -35,6 +33,8 @@ class CustomUser(AbstractUser):
     phone_number = PhoneNumberField(unique=True, null=True)
     profile_picture = models.ImageField(upload_to="images/user_profile_picture", default="avatar.svg")
     address = models.CharField(max_length=300, blank=True, null=True)
+    # twitter_link= models.URLField()
+    # facebook_link= models.URLField()
     is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = "email"
@@ -60,7 +60,6 @@ class HouseOwner(models.Model):
     
     def __str__(self):
         return self.user.username
-
 
 class Tenant(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.SET_NULL, null=True)

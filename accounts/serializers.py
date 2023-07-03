@@ -1,5 +1,6 @@
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.models import User
+from rest_framework.reverse import reverse
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.translation import gettext_lazy as _
@@ -12,7 +13,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.exceptions import AuthenticationFailed
 
 from rest_framework import HTTP_HEADER_ENCODING, authentication
-from .models import CustomUser
+from .models import CustomUser, HouseOwner
 from house_rent_app.serializers import LocationSerializer
 
 
@@ -150,6 +151,39 @@ class UserEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ("first_name", "email", "middle_name", "last_name", "username", 
-                    "profile_picture", "phone_number", "customer_location")
+                    "profile_picture", "phone_number")
 
 
+class CustomUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CustomUser
+        fields = ("first_name", "email", "middle_name", "last_name", "username", 
+                    "profile_picture", "phone_number", "address", "signuptype", "password")
+        extra_kwargs = {
+            "password": {"write_only": True}, 
+            "confirm_password": {"write_only": True}}
+        
+class HouseOwnerSerializer(serializers.ModelSerializer):
+    user = CustomUserSerializer()
+    detail_url = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = HouseOwner
+        fields = ('user', 'detail_url')
+    
+    def get_detail_url(self, obj):
+        request = self.context.get('request')
+        absolute_url = reverse('rent_app:house_owner_retreive_update', args=[str(obj.id)], request=request)
+        return absolute_url
+
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        user_serializer = CustomUserSerializer(data=user_data)
+        user_serializer.is_valid(raise_exception=True)
+        user = user_serializer.save()
+
+        house_owner = HouseOwner.objects.create(user=user)
+        return house_owner
+    
+    

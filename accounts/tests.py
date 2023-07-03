@@ -26,12 +26,12 @@ class PublicAccountApiTests(TestCase):
     def test_create_valid_account_success(self):
         """Test creating account with valid payload is successful"""
         payload = {
-            "email": "sammy@gmail.com",
-            "first_name": "Samuelly",
-            "last_name": "Azubuine",
+            "email": "remi@gmail.com",
+            "first_name": "remiiii",
+            "last_name": "rem",
             "username": "Too",
-            "password": "sammysammy",
-            "confirm_password": "sammysammy",
+            "password": "rulluyrulluy",
+            "confirm_password": "rulluyrulluy",
             "signuptype": "H.O"
         }
         res = self.client.post(CREATE_ACCOUNT_URL, payload)
@@ -43,11 +43,11 @@ class PublicAccountApiTests(TestCase):
     def test_account_exists(self):
         """Test create an account that already exists fails"""
         payload = {
-            "email": "sammy@gmail.com",
-            "first_name": "Samuelly",
-            "last_name": "Azubuine",
+            "email": "remi@gmail.com",
+            "first_name": "remiiii",
+            "last_name": "rem",
             "username": "Too",
-            "password": "sammysammy",
+            "password": "rulluyrulluy",
             "signuptype": "H.O"
         }
         create_account(**payload)
