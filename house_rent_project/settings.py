@@ -26,8 +26,8 @@ DATABASE_URL= config('DATABASE_URL')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = config("DEBUG", cast=bool)
-DEBUG = config('DEBUG', '0').lower() in ['true', 't', '1']
+DEBUG = config("DEBUG", cast=bool)
+# DEBUG = config('DEBUG', '0').lower() in ['true', 't', '1']
 SECRET_KEY = config("SECRET_KEY")
 
 # ALLOWED_HOSTS = ['https://houserentmanagementsystem-production.up.railway.app/', '*']
