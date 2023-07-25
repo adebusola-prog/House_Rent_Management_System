@@ -30,8 +30,8 @@ DEBUG = config("DEBUG", cast=bool)
 # DEBUG = config('DEBUG', '0').lower() in ['true', 't', '1']
 SECRET_KEY = config("SECRET_KEY")
 
-# ALLOWED_HOSTS = ['https://houserentmanagementsystem-production.up.railway.app/', '*']
-ALLOWED_HOSTS = ['*']
+
+ALLOWED_HOSTS = ['https://houserentmanagementsystem-production.up.railway.app/', '*']
 
 
 
@@ -50,14 +50,14 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
-# CSRF_TRUSTED_ORIGINS = ['https://houserentmanagementsystem-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://houserentmanagementsystem-production.up.railway.app']
 
-# CORS_ALLOWED_ORIGINS = ['https://houserentmanagementsystem-production.up.railway.app', 'http://localhost:3000',
-#                         'http://localhost:8000', 'http://127.0.0.1:3000', 'http://127.0.0.1:8000']
-#                         # "https://zippy-dango-7ea3fe.netlify.app", "https://afex-web-project.netlify.app"]
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = ['https://houserentmanagementsystem-production.up.railway.app', 'http://localhost:3000',
+                        'http://localhost:8000', 'http://127.0.0.1:3000', 'http://127.0.0.1:8000']
+                       
+CORS_ALLOW_CREDENTIALS = True
 
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 
