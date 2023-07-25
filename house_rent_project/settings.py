@@ -48,8 +48,6 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "phonenumber_field",
     'corsheaders',
-    'rest_framework_swagger',
-    'drf_yasg',
 ]
 
 # CSRF_TRUSTED_ORIGINS = ['https://houserentmanagementsystem-production.up.railway.app']

@@ -8,7 +8,6 @@ Django==4.2.2
 django-cors-headers==4.1.0
 django-phonenumber-field==7.1.0
 django-phonenumbers==1.0.1
-django-rest-swagger==2.2.0
 djangorestframework==3.14.0
 djangorestframework-jwt==1.11.0
 djangorestframework-simplejwt==5.2.2
