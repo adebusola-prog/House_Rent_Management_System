@@ -15,7 +15,6 @@ class Picture(models.Model):
 
 class Listing(models.Model):
     house_owner = models.ForeignKey(HouseOwner, on_delete=models.SET_NULL, null=True)
-    house_picture = models.ImageField(upload_to= "house/owner", default="avatar.svg")
     house_description = models.TextField()
     location =  models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
 
