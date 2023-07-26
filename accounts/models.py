@@ -20,8 +20,8 @@ class CustomUser(AbstractUser):
     TENANT = constants.TENANT
     
     SIGN_UP_CHOICES = (
-        ('H.O', HOUSE_OWNER),
-        ('T', TENANT),
+        ('House Owner', HOUSE_OWNER),
+        ('Tenants', TENANT),
     )
 
     first_name = models.CharField(max_length=30, null=False, blank=False)

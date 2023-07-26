@@ -1,12 +1,13 @@
 from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from rest_framework.reverse import reverse
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.translation import gettext_lazy as _
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
 
 from rest_framework import serializers
+from rest_framework.reverse import reverse
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -21,7 +22,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     """
     Serializer for user registration.
     """
-
     password = serializers.CharField(write_only=True, required=True)
     confirm_password = serializers.CharField(write_only=True, required=True)
   
@@ -44,18 +44,27 @@ class LoginSerializer(TokenObtainPairSerializer):
     """
     Serializer for user login.
     """
+    first_name = serializers.CharField(read_only=True)
+    last_name = serializers.CharField(read_only=True)
+    email = serializers.EmailField()
+    is_admin = serializers.BooleanField(read_only=True)
+    is_superadmin = serializers.BooleanField(read_only=True)
+    # profile_picture = serializers.FileField(read_only=True)
+    password = serializers.CharField(write_only=True, style={'input_type': 'password'})
+    role = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = CustomUser
+        fields = ("email", "password", "first_name", "last_name", "is_admin", "is_superadmin", "role")
+                #  "profile_picture"
 
-    @classmethod
-    def get_token(cls, user):
-        """
-        Retrieves the token for the authenticated user and adds custom claims.
-        """
-        token = super().get_token(user)
-        token['username'] = user.username
-        token['email'] = user.email
 
-        return token
-
+    def validate(self, validated_data):
+        user = authenticate(**validated_data)
+        if not user.is_active:
+            raise serializers.ValidationError("You have been suspended")
+        return user
+    
 
 class ResetPasswordSerializer(serializers.ModelSerializer):
     """
@@ -164,6 +173,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             "password": {"write_only": True}, 
             "confirm_password": {"write_only": True}}
         
+
 class HouseOwnerSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer()
     detail_url = serializers.SerializerMethodField()

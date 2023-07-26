@@ -24,8 +24,18 @@ class LogoutView(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
-class LoginView(TokenObtainPairView):
-    serializer_class = LoginSerializer
+class LoginView(generics.GenericAPIView):
+    """Login View for user to authenticate"""
+    serializer_class =  LoginSerializer
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data
+        token = RefreshToken.for_user(user)
+        data = serializer.data
+        data["tokens"] = {"refresh": str(
+            token), "access": str(token.access_token)}
+        return Response(data, status=status.HTTP_200_OK)
    
 
 class ChangePassword(generics.UpdateAPIView):
