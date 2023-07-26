@@ -1,4 +1,4 @@
 HOUSE_OWNER = 'House Owner'
-TENANT = 'Tenants'
+TENANT = 'Tenant'
 DB_HOUSE_OWNER = 'House Owner'
-DB_TENANTS = 'Tenants'
+DB_TENANTS = 'Tenant'
