@@ -63,7 +63,7 @@ class UserRegistrationView(generics.CreateAPIView):
             account = CustomUser.objects.create_user(
                 first_name=first_name, last_name=last_name, username=username,
                 email = email, password=password, signuptype=signuptype)
-            if account.signuptype == 'H.O':
+            if account.signuptype == 'House Owner':
                 HouseOwner.objects.get_or_create(user=account)
             Tenant.objects.get_or_create(user=account)
             
