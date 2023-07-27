@@ -47,16 +47,11 @@ class LoginSerializer(TokenObtainPairSerializer):
     first_name = serializers.CharField(read_only=True)
     last_name = serializers.CharField(read_only=True)
     email = serializers.EmailField()
-    is_admin = serializers.BooleanField(read_only=True)
-    is_superadmin = serializers.BooleanField(read_only=True)
-    # profile_picture = serializers.FileField(read_only=True)
     password = serializers.CharField(write_only=True, style={'input_type': 'password'})
-    role = serializers.SerializerMethodField()
     
     class Meta:
         model = CustomUser
-        fields = ("email", "password", "first_name", "last_name", "is_admin", "is_superadmin", "role")
-                #  "profile_picture"
+        fields = ("email", "password", "first_name", "last_name")
 
 
     def validate(self, validated_data):
